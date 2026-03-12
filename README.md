@@ -305,7 +305,7 @@ Content-Type: application/json
 | DB_PASSWORD    | Database password                     | your_password                                      |
 | JWT_SECRET     | Secret for JWT signing (min 32 chars) | your_secret_min_32_chars                           |
 | JWT_EXPIRES_IN | Token expiry                          | 1h                                                 |
-| CORS_ORIGIN    | Allowed frontend origin (production)  | https://your-app.vercel.app                         |
+| CORS_ORIGIN    | Allowed frontend origin (production)  | https://your-app.vercel.app                        |
 | VITE_API_URL   | Backend API URL (frontend only)       | http://localhost:3000                              |
 
 ---
