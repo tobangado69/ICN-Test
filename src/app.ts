@@ -7,7 +7,8 @@ import taskRoutes from "./modules/tasks/task.route";
 
 const app = express();
 
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN;
+app.use(cors(corsOrigin ? { origin: corsOrigin } : {}));
 app.use(express.json());
 app.use(requestLogger);
 

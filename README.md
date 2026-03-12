@@ -6,10 +6,10 @@ A full-stack REST API and web app for managing users and tasks. Users can regist
 
 ## Tech Stack
 
-| Layer | Technologies |
-|-------|--------------|
-| **Backend** | Node.js, TypeScript, Express, Prisma, PostgreSQL, Zod, JWT, bcrypt, dotenv, cors |
-| **Frontend** | React 18, Vite, TypeScript, React Router, Tailwind CSS, Axios |
+| Layer        | Technologies                                                                     |
+| ------------ | -------------------------------------------------------------------------------- |
+| **Backend**  | Node.js, TypeScript, Express, Prisma, PostgreSQL, Zod, JWT, bcrypt, dotenv, cors |
+| **Frontend** | React 18, Vite, TypeScript, React Router, Tailwind CSS, Axios                    |
 
 ---
 
@@ -26,8 +26,8 @@ A full-stack REST API and web app for managing users and tasks. Users can regist
 ### Step 1: Clone and install dependencies
 
 ```bash
-git clone <your-repo-url>
-cd task-manager-api  
+git clone https://github.com/tobangado69/ICN-Test.git
+cd task-manager-api
 npm install
 ```
 
@@ -38,6 +38,7 @@ cp .env.example .env
 ```
 
 Edit `.env` and set:
+
 - `DATABASE_URL` — PostgreSQL connection string
 - `JWT_SECRET` — At least 32 characters (for token signing)
 
@@ -48,6 +49,7 @@ npx prisma migrate deploy
 ```
 
 For development (creates migration if schema changed):
+
 ```bash
 npx prisma migrate dev --name init
 ```
@@ -76,12 +78,14 @@ Frontend runs at **http://localhost:5173**.
 ### Production
 
 **Backend:**
+
 ```bash
 npm run build
 npm start
 ```
 
 **Frontend:**
+
 ```bash
 cd frontend
 npm run build
@@ -119,26 +123,26 @@ npm run build
 
 ### Users
 
-| Method | Path | Auth | Description |
-|--------|------|------|-------------|
-| POST | `/users` | No | Register a new user |
-| POST | `/users/login` | No | Login, returns JWT token |
-| GET | `/users` | No | List all users |
-| GET | `/users/:id` | No | Get user by ID |
-| GET | `/users/:id/tasks` | No | Get tasks for a user |
-| PUT | `/users/:id` | No | Update user |
-| DELETE | `/users/:id` | No | Delete user |
+| Method | Path               | Auth | Description              |
+| ------ | ------------------ | ---- | ------------------------ |
+| POST   | `/users`           | No   | Register a new user      |
+| POST   | `/users/login`     | No   | Login, returns JWT token |
+| GET    | `/users`           | No   | List all users           |
+| GET    | `/users/:id`       | No   | Get user by ID           |
+| GET    | `/users/:id/tasks` | No   | Get tasks for a user     |
+| PUT    | `/users/:id`       | No   | Update user              |
+| DELETE | `/users/:id`       | No   | Delete user              |
 
 ### Tasks
 
-| Method | Path | Auth | Description |
-|--------|------|------|-------------|
-| POST | `/tasks` | Bearer | Create a task |
-| GET | `/tasks` | No | List all tasks |
-| GET | `/tasks/my-tasks` | Bearer | List tasks for the authenticated user |
-| GET | `/tasks/:id` | No | Get task by ID |
-| PUT | `/tasks/:id` | Bearer | Update task (owner only) |
-| DELETE | `/tasks/:id` | Bearer | Delete task (owner only) |
+| Method | Path              | Auth   | Description                           |
+| ------ | ----------------- | ------ | ------------------------------------- |
+| POST   | `/tasks`          | Bearer | Create a task                         |
+| GET    | `/tasks`          | No     | List all tasks                        |
+| GET    | `/tasks/my-tasks` | Bearer | List tasks for the authenticated user |
+| GET    | `/tasks/:id`      | No     | Get task by ID                        |
+| PUT    | `/tasks/:id`      | Bearer | Update task (owner only)              |
+| DELETE | `/tasks/:id`      | Bearer | Delete task (owner only)              |
 
 Protected endpoints require header: `Authorization: Bearer <token>`.
 
@@ -149,6 +153,7 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ### POST /users — Register
 
 **Request:**
+
 ```json
 {
   "name": "Jane Doe",
@@ -158,6 +163,7 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": 1,
@@ -169,6 +175,7 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ```
 
 **Error (409 — email already registered):**
+
 ```json
 {
   "error": "Email already registered"
@@ -180,6 +187,7 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ### POST /users/login — Login
 
 **Request:**
+
 ```json
 {
   "email": "jane@example.com",
@@ -188,6 +196,7 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ```
 
 **Response (200):**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -202,6 +211,7 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ```
 
 **Error (401):**
+
 ```json
 {
   "error": "Invalid email or password"
@@ -213,12 +223,14 @@ Protected endpoints require header: `Authorization: Bearer <token>`.
 ### POST /tasks — Create task (requires Bearer token)
 
 **Request Headers:**
+
 ```
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 Content-Type: application/json
 ```
 
 **Request Body:**
+
 ```json
 {
   "title": "Complete project docs",
@@ -228,6 +240,7 @@ Content-Type: application/json
 ```
 
 **Response (201):**
+
 ```json
 {
   "id": 1,
@@ -241,6 +254,7 @@ Content-Type: application/json
 ```
 
 **Error (401 — no token):**
+
 ```json
 {
   "error": "Missing or invalid token"
@@ -252,6 +266,7 @@ Content-Type: application/json
 ### PUT /tasks/:id — Update task
 
 **Request:**
+
 ```json
 {
   "title": "Updated title",
@@ -262,6 +277,7 @@ Content-Type: application/json
 **Response (200):** Returns the updated task object.
 
 **Error (403 — not owner):**
+
 ```json
 {
   "error": "You do not have permission to update this task"
@@ -278,26 +294,27 @@ Content-Type: application/json
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| PORT | Backend server port | 3000 |
-| DATABASE_URL | PostgreSQL connection URL | postgresql://user:pass@localhost:5432/task_manager |
-| DB_HOST | Database host (if used) | localhost |
-| DB_PORT | Database port | 5432 |
-| DB_NAME | Database name | task_manager |
-| DB_USER | Database user | postgres |
-| DB_PASSWORD | Database password | your_password |
-| JWT_SECRET | Secret for JWT signing (min 32 chars) | your_secret_min_32_chars |
-| JWT_EXPIRES_IN | Token expiry | 1h |
-| VITE_API_URL | Backend API URL (frontend only) | http://localhost:3000 |
+| Variable       | Description                           | Example                                            |
+| -------------- | ------------------------------------- | -------------------------------------------------- |
+| PORT           | Backend server port                   | 3000                                               |
+| DATABASE_URL   | PostgreSQL connection URL             | postgresql://user:pass@localhost:5432/task_manager |
+| DB_HOST        | Database host (if used)               | localhost                                          |
+| DB_PORT        | Database port                         | 5432                                               |
+| DB_NAME        | Database name                         | task_manager                                       |
+| DB_USER        | Database user                         | postgres                                           |
+| DB_PASSWORD    | Database password                     | your_password                                      |
+| JWT_SECRET     | Secret for JWT signing (min 32 chars) | your_secret_min_32_chars                           |
+| JWT_EXPIRES_IN | Token expiry                          | 1h                                                 |
+| CORS_ORIGIN    | Allowed frontend origin (production)  | https://your-app.vercel.app                         |
+| VITE_API_URL   | Backend API URL (frontend only)       | http://localhost:3000                              |
 
 ---
 
 ## Ports
 
-| Service | Port | URL |
-|---------|------|-----|
-| Backend | 3000 | http://localhost:3000 |
+| Service  | Port | URL                   |
+| -------- | ---- | --------------------- |
+| Backend  | 3000 | http://localhost:3000 |
 | Frontend | 5173 | http://localhost:5173 |
 
 ---
@@ -306,8 +323,48 @@ Content-Type: application/json
 
 _Add your deployment URL here after deploying to Vercel, Netlify, Railway, or similar._
 
-- **Backend (API):** _e.g. https://your-api.railway.app_
-- **Frontend:** _e.g. https://your-app.vercel.app_
+- **Backend (API):** _e.g. https://your-api.railway.app_ (PENDING)
+- **Frontend:** _e.g. https://your-app.vercel.app_ (PENDING)
+
+---
+
+## Deployment — Option 1: Vercel + Railway/Render
+
+### 1. Backend (Railway or Render)
+
+1. Create a new project and add a **PostgreSQL** database (Railway/Render/Neon/Supabase).
+2. Add a **Web Service** that uses this repo:
+   - **Root Directory:** `.` (project root)
+   - **Build Command:** `npm install && npx prisma generate && npm run build`
+   - **Start Command:** `npx prisma migrate deploy && npm start`
+3. Set environment variables:
+   - `DATABASE_URL` — use the URL from the PostgreSQL add-on
+   - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` — from the connection string or same values as local
+   - `JWT_SECRET` — at least 32 characters
+4. Deploy and copy the backend URL (e.g. `https://your-api.railway.app`).
+
+### 2. Backend CORS
+
+Set `CORS_ORIGIN` to your frontend URL after Vercel deploys:
+
+```
+CORS_ORIGIN=https://your-app.vercel.app
+```
+
+### 3. Frontend (Vercel)
+
+1. Connect the repo to Vercel.
+2. Project settings:
+   - **Root Directory:** `frontend`
+   - **Build Command:** `npm run build` (default)
+   - **Output Directory:** `dist`
+3. Add environment variable:
+   - `VITE_API_URL` — your backend URL (e.g. `https://your-api.railway.app`)
+4. Deploy.
+
+### 4. Update README
+
+Replace the Live URL placeholders above with your deployed URLs.
 
 ---
 

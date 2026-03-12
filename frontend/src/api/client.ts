@@ -16,16 +16,20 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (res) => res,
   (err: AxiosError<{ error?: string }>) => {
-    const message = err.response?.data?.error ?? err.message ?? "Request failed";
+    const message =
+      err.response?.data?.error ?? err.message ?? "Request failed";
     return Promise.reject(new Error(message));
-  }
+  },
 );
 
 export async function api<T>(
   path: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
-  const { method = "GET", body } = options as { method?: string; body?: string };
+  const { method = "GET", body } = options as {
+    method?: string;
+    body?: string;
+  };
   const config = body ? JSON.parse(body as string) : undefined;
 
   const res = await axiosInstance.request<T>({
