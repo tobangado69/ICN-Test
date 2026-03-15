@@ -12,6 +12,10 @@ app.use(cors(corsOrigin ? { origin: corsOrigin } : {}));
 app.use(express.json());
 app.use(requestLogger);
 
+app.get("/", (_req, res) => {
+  res.json({ ok: true, message: "Task Manager API" });
+});
+
 app.use("/users", userRoutes);
 app.use("/tasks", taskRoutes);
 
