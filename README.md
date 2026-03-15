@@ -323,8 +323,8 @@ Content-Type: application/json
 
 _Add your deployment URL here after deploying to Vercel, Netlify, Railway, or similar._
 
-- **Backend (API):** _e.g. https://your-api.railway.app_ (PENDING)
-- **Frontend:** _e.g. https://your-app.vercel.app_ (PENDING)
+- **Backend (API):** _e.g. https://icn-test-production.up.railway.app (DONE)
+- **Frontend:** _e.g. https://icn-test-inky.vercel.app/login (DONE)
 
 ---
 
